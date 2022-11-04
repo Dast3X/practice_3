@@ -3,6 +3,7 @@ package lv.tsi.lamda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 public class PersonEvaluator {
     List<Person> persons = new ArrayList<Person>();
@@ -25,12 +26,12 @@ public class PersonEvaluator {
 
     public void groupAndPrint(int[] ages) {
         for(int i = 0; i < ages.length; i++){
-            System.out.print("Age " + ages[i] + ": [");
+            System.out.print("Age " + ages[i] + ": ");
             int finalI = i;
-            persons.stream()
+            System.out.println(persons.stream()
                     .filter(person -> person.getAge() == ages[finalI])
-                    .forEach(person -> System.out.print(person.getName() + " "));
-            System.out.println("]\n");
+                    .map(Person::getName)
+                    .collect(Collectors.toList()));
         }
     }
 
